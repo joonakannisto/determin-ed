@@ -24,9 +24,12 @@ func check(e error) {
 
 func main() {
   var publicKey = new([32]byte)
-
+if (len(os.Args[:]) <2) {
+panic("Usage " +os.Args[0]+ " filename")	
+}
 // Read file
-dat, ass := ioutil.ReadFile("med_25519")
+filename := os.Args[1]
+dat, ass := ioutil.ReadFile(filename)
 check(ass)
 // ask for hmac password with file
 bytePass, err := terminal.ReadPassword(syscall.Stdin)
@@ -74,10 +77,9 @@ var A edwards25519.ExtendedGroupElement
 
 func lenvalue (content []byte) (lengthencoded []byte){
  result := make([]byte, 4)
-// these will be under 256 bytes anyway so fuck logarithms in the index
  binary.BigEndian.PutUint32(result,uint32(len(content)))
-  lengthencoded = append(result[:],content[:]...)
-  return lengthencoded
+ lengthencoded = append(result[:],content[:]...)
+ return lengthencoded
 
 }
 func sshpubkey(pubkey [PublicKeySize]byte) (sshpubkeyblob []byte) {
