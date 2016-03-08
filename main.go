@@ -101,9 +101,9 @@ func sshprivkey(pubkey [PublicKeySize]byte, privkey [PrivateKeySize]byte)(byteke
   //KDFs and stuff
   final :=append(start[:],lenvalue([]byte("none"))...)
   final = append(final[:],lenvalue([]byte("none"))...)
-  // I care too fucking much to bother explaining these values i.e. don't know where they are coming from
+  // I don't know where these values are coming from, maybe KDF parameters, which there are "none"
   final = append(final[:],[]byte("\x00\x00\x00\x00")...)
-  // This value left out to account for length null in previous byte array
+  // This value left out to account for length null in previous byte array, uncomment if kdf parameters needed
   //final = append(final[:],[]byte("\xd1\xck\xbu\xtt"))
   final = append(final[:],[]byte("\x00\x00\x00\x01")...)
   final = append(final[:],[]byte("\x00\x00\x00\x33")...)
@@ -117,7 +117,7 @@ func sshprivkey(pubkey [PublicKeySize]byte, privkey [PrivateKeySize]byte)(byteke
   // Lets add them twice for good measure
   final = append(final[:],[]byte("\xa7\x33\x93\xe2")...)
   final = append(final[:],[]byte("\xa7\x33\x93\xe2")...)
-  // This shit again
+  // This shit again...
   final = append(final[:],lenvalue([]byte("ssh-ed25519"))...)
   final = append(final[:],lenvalue(pubkey[:])...)
   // Finally, the only thing that was really needed
