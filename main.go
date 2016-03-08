@@ -55,14 +55,17 @@ func main() {
   A.ToBytes(publicKey)
   var pubkeystat [32]byte
   pubkeystat=*publicKey
-  copy(digest[32:],pubkeystat[:])
+  copy(privkey[32:],pubkeystat[:])
   var privkey [64]byte
-  copy(privkey[:64],digest[:64])
+  copy(privkey[:32],passu[:])
   var publicblob []byte
   publicblob = sshpubkey(pubkeystat)
   privblob := sshprivkey(pubkeystat,privkey)
   privblobstring := b64.StdEncoding.EncodeToString(privblob)
+  fmt.Println(privblobstring)
   publicblobstring := b64.StdEncoding.EncodeToString(publicblob)
+  fmt.Println(publicblobstring)
+
   f, err := os.Create("id_new")
   check(err)
   f.WriteString("-----BEGIN OPENSSH PRIVATE KEY-----\n")
