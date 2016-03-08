@@ -5,13 +5,13 @@ Problem
 =======
 SSH keys stored on mobile devices and laptop computers are typically password protected, so that if the device is stolen or compromised the attacker has to guess the password in order to use the key. Only raw computing power limits the rate of the attacker's guesses when the key is not stored in a TPM (the TPM should withstand attacks as well). Fortunately, there are new password strengthening mechanisms, which try to minimize the computing gap between the most powerful attacker and the weakest user device. Nevertheless, the attacker advantage can be estimated to exceed 30 bits[1] of password entropy, which requires lengthy passwords or inhuman wait times.
 
-What if
-=======
+What if?
+========
 What if the attacker would not be able to confirm the key guesses without trying them on the target server?
 
  - The public key should not be in the device
  - Valid private key decryption should not have structure, i.e. no offline guess attackability
-   - For example, RSA fails this by default 
+   - For example, RSA can fail this as valid p and q have structure (primality, which means getting two prime numbers randomly (1/log(N) each) would be roughly one in a million for 1k RSA)
  - OpenSSH public key query should be resistant to timing attacks
 
 This proof of concept tool is intended to solve the first two problems (don't know anything about the last issue).
@@ -35,7 +35,8 @@ Use the determin-ed to create a deterministic SSH key from the seed file
 Put the resulting public key (id_new.pub) to your target server. Delete both id_new* files.
 Automate a command to create your keys when connecting to target
 
-- ProxyCommand determined ~/.ssh/id_rsa.pub -out=~/.ssh/id_new; exec socket %h %p && rm ~/.ssh/id_new*
+ - SSH does not have interactive shell command hooks so the example below does not work
+ - ProxyCommand determin-ed -out=~/.ssh/id_new ~/.ssh/id_rsa.pub ; exec socket %h %p && rm ~/.ssh/id_new*
 
 Can this be used to create password based keys?
 ===============================================
