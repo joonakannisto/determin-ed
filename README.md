@@ -18,12 +18,17 @@ This proof of concept tool is intended to solve the first two problems (don't kn
 Usage
 =====
 Create a key seed file.
-Any tool that can output random garbage like ssh-keygen is fine for this.
-  ssh-keygen -t ed25519 -f keyseed
+Any tool that can output truly madly random garbage like ssh-keygen is fine for this.
+
+ - ssh-keygen -t ed25519 -f keyseed
+
 Not the most elegant, but doesn't matter, got entropy.
+
 Use the deterministic-ed to create a deterministic SSH key from the seed file
-  deterministic-ed keyseed
-  cat id_new.pub
+
+ -  deterministic-ed -out=id_temp keyseed
+ -  cat id_temp.pub
+
 Put the resulting public key (id_new.pub) to your target server. Delete both id_new* files.
 Automate a command to create your keys when connecting to target
 ProxyCommand determined ~/.ssh/id_rsa.pub -out=~/.ssh/id_new; exec socket %h %p && rm ~/.ssh/id_new*
