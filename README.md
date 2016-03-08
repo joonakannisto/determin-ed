@@ -27,7 +27,7 @@ Any tool that can output truly madly random garbage like ssh-keygen is fine for 
 
 Not the most elegant, but doesn't matter, got entropy.
 
-Use the determin-ed to create a deterministic SSH key from the seed file
+Use determin-ed to create a deterministic SSH key from the seed file
 
  -  determin-ed -out=id_temp keyseed
  -  cat id_temp.pub
@@ -35,7 +35,7 @@ Use the determin-ed to create a deterministic SSH key from the seed file
 Put the resulting public key (id_new.pub) to your target server. Delete both id_new* files.
 Automate a command to create your keys when connecting to target
 
- - SSH does not have interactive shell command hooks so the example below does not work
+ - SSH does not have interactive shell command hooks so the example below does not work. If someone could patch this somehow, so that the command could find parent tty and use it, it would be nice.
  - ProxyCommand determin-ed -out=~/.ssh/id_new ~/.ssh/id_rsa.pub ; exec socket %h %p && rm ~/.ssh/id_new*
 
 Can this be used to create password based keys?
