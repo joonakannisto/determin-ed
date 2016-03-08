@@ -3,7 +3,7 @@ Create deterministic ed25519 keys from seedfile and password for openssh-key-v1 
 
 Guessing attacks against stored ssh keys
 ========================================
-SSH keys stored on mobile devices and laptop computers are typically password protected, so that if the device is stolen or compromised the attacker has to guess the password in order to use the key. Only raw computing power limits the rate of the attacker's guesses when the key is not stored in a TPM (the TPM should withstand attacks as well). Fortunately, there are new password strengthening mechanisms, which try to minimize the computing gap between the most powerful attacker and the weakest user device. Nevertheless, the attacker advantage can be estimated to exceed 30 bits[1] of password entropy, which requires lengthy passwords or inhuman wait times.
+SSH keys stored on mobile devices and laptop computers are typically password protected, so that if the device is stolen or compromised the attacker has to guess the password in order to use the key. Only raw computing power limits the rate of the attacker's guesses when the key is not stored in a TPM (the TPM should withstand attacks as well). Fortunately there are new password strengthening mechanisms, which try to minimize the computing gap between the most powerful attacker and the weakest user device. Nevertheless, the attacker advantage can be estimated to exceed 30 bits[1] of password entropy, which requires lengthy passwords or inhuman wait times.
 
 What if the CIA filled the tanks with special jet fuel?
 =======================================================
