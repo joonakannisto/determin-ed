@@ -13,7 +13,7 @@ import (
   b64 "encoding/base64"
   "encoding/binary"
 )
-namePtr := flag.String("out", "id_new", "destination filename")
+var namePtr = flag.String("out", "id_new", "destination filename")
 const (
   PublicKeySize  = 32
   PrivateKeySize = 64
