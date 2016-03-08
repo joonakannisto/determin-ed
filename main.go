@@ -1,64 +1,64 @@
 package main
 import (
-    "io/ioutil"
-    "os"
-    "syscall"
-    "golang.org/x/crypto/ssh/terminal"
-    "github.com/agl/ed25519/edwards25519"
-    "crypto/hmac"
-    "crypto/sha256"
-    "crypto/sha512"
-    b64 "encoding/base64"
-    "encoding/binary"
+  "io/ioutil"
+  "os"
+  "syscall"
+  "golang.org/x/crypto/ssh/terminal"
+  "github.com/agl/ed25519/edwards25519"
+  "crypto/hmac"
+  "crypto/sha256"
+  "crypto/sha512"
+  b64 "encoding/base64"
+  "encoding/binary"
 )
 const (
-	PublicKeySize  = 32
-	PrivateKeySize = 64
+  PublicKeySize  = 32
+  PrivateKeySize = 64
 )
 
 func check(e error) {
-    if e != nil {
-        panic(e)
-    }
+  if e != nil {
+    panic(e)
+  }
 }
 
 func main() {
   var publicKey = new([32]byte)
-if (len(os.Args[:]) <2) {
-panic("Usage " +os.Args[0]+ " filename")	
-}
-// Read file
-filename := os.Args[1]
-dat, ass := ioutil.ReadFile(filename)
-check(ass)
-// ask for hmac password with file
-bytePass, err := terminal.ReadPassword(syscall.Stdin)
-check(err)
-passu := hmac.New(sha256.New, bytePass)
-passu.Write(dat)
-kdfresult :=passu.Sum(nil)
-h := sha512.New()
-h.Write(kdfresult)
-digest := h.Sum(nil)
+  if (len(os.Args[:]) <2) {
+    panic("Usage " +os.Args[0]+ " filename")
+  }
+  // Read file
+  filename := os.Args[1]
+  dat, ass := ioutil.ReadFile(filename)
+  check(ass)
+  // ask for hmac password with file
+  bytePass, err := terminal.ReadPassword(syscall.Stdin)
+  check(err)
+  passu := hmac.New(sha256.New, bytePass)
+  passu.Write(dat)
+  kdfresult :=passu.Sum(nil)
+  h := sha512.New()
+  h.Write(kdfresult)
+  digest := h.Sum(nil)
 
-//Lowest three are cleared
-digest[0] &= 248
-// Highest bit cleared  of the last
-digest[31] &= 127
-// Second highest bit set of the last
-digest[31] |= 64
-// I is ^c^v:ing from agl ed25519
-var A edwards25519.ExtendedGroupElement
+  //Lowest three are cleared
+  digest[0] &= 248
+  // Highest bit cleared  of the last
+  digest[31] &= 127
+  // Second highest bit set of the last
+  digest[31] |= 64
+  // I is ^c^v:ing from agl ed25519
+  var A edwards25519.ExtendedGroupElement
   var hBytes [32]byte
   copy(hBytes[:], digest[:32])
-	edwards25519.GeScalarMultBase(&A, &hBytes)
-	A.ToBytes(publicKey)
+  edwards25519.GeScalarMultBase(&A, &hBytes)
+  A.ToBytes(publicKey)
   var pubkeystat [32]byte
   pubkeystat=*publicKey
   copy(digest[32:],pubkeystat[:])
   var privkey [64]byte
   copy(privkey[:64],digest[:64])
-  var publicblob []byte 
+  var publicblob []byte
   publicblob = sshpubkey(pubkeystat)
   privblob := sshprivkey(pubkeystat,privkey)
   privblobstring := b64.StdEncoding.EncodeToString(privblob)
@@ -76,10 +76,10 @@ var A edwards25519.ExtendedGroupElement
 }
 
 func lenvalue (content []byte) (lengthencoded []byte){
- result := make([]byte, 4)
- binary.BigEndian.PutUint32(result,uint32(len(content)))
- lengthencoded = append(result[:],content[:]...)
- return lengthencoded
+  result := make([]byte, 4)
+  binary.BigEndian.PutUint32(result,uint32(len(content)))
+  lengthencoded = append(result[:],content[:]...)
+  return lengthencoded
 
 }
 func sshpubkey(pubkey [PublicKeySize]byte) (sshpubkeyblob []byte) {
