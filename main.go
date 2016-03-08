@@ -32,7 +32,7 @@ func main() {
   }
   flag.Parse()
   // Read file
-  filename := os.Args[1]
+  filename := flag.Args()[0]
   dat, ass := ioutil.ReadFile(filename)
   check(ass)
   fmt.Println("Type private key password")
