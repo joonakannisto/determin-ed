@@ -1,5 +1,5 @@
 # determin-ed
-Create deterministic ed25519 keys from seedfile for openssh-key-v1 format
+Create deterministic ed25519 keys from seedfile and password for openssh-key-v1 format
 
 Problem
 =======
