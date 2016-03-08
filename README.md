@@ -10,7 +10,7 @@ What if
 What if the attacker would not be able to confirm the key guesses without trying them on the target server?
 
  - The public key should not be at the device
- - Valid private key decryption should not have structure, i.e. no offline guess attackability 
+ - Valid private key decryption should not have structure, i.e. no offline guess attackability
  - OpenSSH public key query should be resistant to timing attacks
 
 This proof of concept tool is intended to solve the first two problems (don't know anything about the last issue).
@@ -24,15 +24,21 @@ Any tool that can output truly madly random garbage like ssh-keygen is fine for 
 
 Not the most elegant, but doesn't matter, got entropy.
 
-Use the deterministic-ed to create a deterministic SSH key from the seed file
+Use the determin-ed to create a deterministic SSH key from the seed file
 
- -  deterministic-ed -out=id_temp keyseed
+ -  determin-ed -out=id_temp keyseed
  -  cat id_temp.pub
 
 Put the resulting public key (id_new.pub) to your target server. Delete both id_new* files.
 Automate a command to create your keys when connecting to target
 
 - ProxyCommand determined ~/.ssh/id_rsa.pub -out=~/.ssh/id_new; exec socket %h %p && rm ~/.ssh/id_new*
+
+Can this be used to create password based keys?
+===============================================
+Yes. Should you? Maybe not.  
+
+
 
 
 [1] Give attacker more time and parallel GPUs worth of 1M$, shittiest hardware for the user and 0.05 s wait time  https://litecoin.info/Mining_hardware_comparison
