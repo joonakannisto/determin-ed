@@ -111,7 +111,8 @@ func sshprivkey(pubkey [PublicKeySize]byte, privkey [PrivateKeySize]byte)(byteke
   final = append(final[:],[]byte("\x00\x00\x00\x20")...)
   final = append(final[:],pubkey[:]...)
 
-  // some outer wrapping it is the encoding of private key
+  // some outer wrapping it is the encoding of private key, would be nicer to
+  // run the inner structure through lenght encoding...
   final = append(final[:],[]byte("\x00\x00\x00\x90")...)
   // Found these numbers a7 33 93 e2 a7 33 93 e2
   // Lets add them twice for good measure
