@@ -62,9 +62,9 @@ func main() {
   publicblob = sshpubkey(pubkeystat)
   privblob := sshprivkey(pubkeystat,privkey)
   privblobstring := b64.StdEncoding.EncodeToString(privblob)
-  fmt.Println(privblobstring)
+  //fmt.Println(privblobstring)
   publicblobstring := b64.StdEncoding.EncodeToString(publicblob)
-  fmt.Println(publicblobstring)
+  //fmt.Println(publicblobstring)
 
   f, err := os.Create("id_new")
   check(err)
