@@ -11,6 +11,7 @@ What if the attacker would not be able to confirm the key guesses without trying
  - The public key should not be at the device
  - Valid private key decryption should not have structure
  - OpenSSH public key query should be resistant to timing attacks
+ 
  This proof of concept tool is intended to solve the first two problems (don't know anything about the last issue).
 
  Usage
