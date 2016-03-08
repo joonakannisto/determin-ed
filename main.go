@@ -55,9 +55,9 @@ func main() {
   A.ToBytes(publicKey)
   var pubkeystat [32]byte
   pubkeystat=*publicKey
-  copy(privkey[32:],pubkeystat[:])
   var privkey [64]byte
-  copy(privkey[:32],passu[:])
+  copy(privkey[32:],pubkeystat[:])
+  copy(privkey[:32],kdfresult[:])
   var publicblob []byte
   publicblob = sshpubkey(pubkeystat)
   privblob := sshprivkey(pubkeystat,privkey)
