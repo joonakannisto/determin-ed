@@ -13,6 +13,7 @@ import (
   b64 "encoding/base64"
   "encoding/binary"
 )
+namePtr := flag.String("out", "id_new", "destination filename")
 const (
   PublicKeySize  = 32
   PrivateKeySize = 64
@@ -29,6 +30,7 @@ func main() {
   if (len(os.Args[:]) <2) {
     panic("Usage " +os.Args[0]+ " filename")
   }
+  flag.Parse()
   // Read file
   filename := os.Args[1]
   dat, ass := ioutil.ReadFile(filename)
@@ -68,8 +70,7 @@ func main() {
   //fmt.Println(privblobstring)
   publicblobstring := b64.StdEncoding.EncodeToString(publicblob)
   //fmt.Println(publicblobstring)
-  namePtr := flag.String("out", "id_new", "destination filename")
-  flag.Parse()
+
   f, err := os.Create(*namePtr)
   check(err)
   f.WriteString("-----BEGIN OPENSSH PRIVATE KEY-----\n")
