@@ -1,6 +1,8 @@
 package main
 import (
   "io/ioutil"
+  "fmt"
+  "flag"
   "os"
   "syscall"
   "golang.org/x/crypto/ssh/terminal"
