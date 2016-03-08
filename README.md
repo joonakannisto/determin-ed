@@ -11,7 +11,7 @@ What if the attacker would not be able to confirm the key guesses without trying
 
  - The public key should not be in the device
  - Valid private key decryption should not have structure, i.e. no offline guess attackability
-   - For example, RSA can fail this as valid p and q have structure (primality, which means getting two prime numbers randomly (1/log(N) each) would be roughly one in a million for 1k RSA)
+   - For example, RSA fails this as valid p and q have structure (primality, which means getting two prime numbers randomly (1/log(N) each) would be roughly one in a million for 1k RSA)
  - OpenSSH public key query should be resistant to timing attacks
 
 This proof of concept tool is intended to solve the first two problems (don't know anything about the last issue).
