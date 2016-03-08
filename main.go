@@ -71,7 +71,7 @@ func main() {
   _ =f.Close
   pubf,err := os.Create("id_new.pub")
   check(err)
-  pubf.WriteString("ssh-ed25519 "+publicblobstring+ "root@porn\n")
+  pubf.WriteString("ssh-ed25519 "+publicblobstring+ " root@porn\n")
   _=pubf.Close
 }
 
