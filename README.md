@@ -31,7 +31,8 @@ Use the deterministic-ed to create a deterministic SSH key from the seed file
 
 Put the resulting public key (id_new.pub) to your target server. Delete both id_new* files.
 Automate a command to create your keys when connecting to target
-ProxyCommand determined ~/.ssh/id_rsa.pub -out=~/.ssh/id_new; exec socket %h %p && rm ~/.ssh/id_new*
+
+- ProxyCommand determined ~/.ssh/id_rsa.pub -out=~/.ssh/id_new; exec socket %h %p && rm ~/.ssh/id_new*
 
 
 [1] Give attacker more time and parallel GPUs worth of 1M$, shittiest hardware for the user and 0.05 s wait time  https://litecoin.info/Mining_hardware_comparison
