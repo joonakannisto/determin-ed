@@ -38,7 +38,7 @@ Automate a command to create your keys when connecting to target
 
 Can this be used to create password based keys?
 ===============================================
-Yes. Should you? Maybe not.  
+Yes. Should you? Maybe not. OpenSSH supports also password authentication, did you know?  
 
 
 
