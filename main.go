@@ -104,13 +104,14 @@ func sshprivkey(pubkey [PublicKeySize]byte, privkey [PrivateKeySize]byte)(byteke
   // I don't know where these values are coming from, maybe KDF parameters, which there are "none"
   final = append(final[:],[]byte("\x00\x00\x00\x00")...)
   // This value left out to account for length null in previous byte array, uncomment if kdf parameters needed
-  //final = append(final[:],[]byte("\xd1\xck\xbu\xtt"))
+  //final = append(final[:],[]byte("\xd1\xck\xbu\xtt")...)
+  // Storing one pub key
   final = append(final[:],[]byte("\x00\x00\x00\x01")...)
+  // Pubkey structure will be x33 bytes in size
   final = append(final[:],[]byte("\x00\x00\x00\x33")...)
   final = append(final[:],lenvalue([]byte("ssh-ed25519"))...)
   final = append(final[:],[]byte("\x00\x00\x00\x20")...)
   final = append(final[:],pubkey[:]...)
-
   // some outer wrapping it is the encoding of private key, would be nicer to
   // run the inner structure through lenght encoding...
   final = append(final[:],[]byte("\x00\x00\x00\x90")...)
