@@ -31,6 +31,7 @@ func main() {
   filename := os.Args[1]
   dat, ass := ioutil.ReadFile(filename)
   check(ass)
+  fmt.Println("Type private key password")
   // ask for hmac password with file
   bytePass, err := terminal.ReadPassword(syscall.Stdin)
   check(err)
@@ -65,14 +66,15 @@ func main() {
   //fmt.Println(privblobstring)
   publicblobstring := b64.StdEncoding.EncodeToString(publicblob)
   //fmt.Println(publicblobstring)
-
-  f, err := os.Create("id_new")
+ namePtr := flag.String("out", "id_new", "destination filename")
+ flag.Parse()
+  f, err := os.Create(*namePtr)
   check(err)
   f.WriteString("-----BEGIN OPENSSH PRIVATE KEY-----\n")
   f.WriteString(privblobstring+"\n")
   f.WriteString("-----END OPENSSH PRIVATE KEY-----\n")
   _ =f.Close
-  pubf,err := os.Create("id_new.pub")
+  pubf,err := os.Create(*namePtr+".pub")
   check(err)
   pubf.WriteString("ssh-ed25519 "+publicblobstring+ " root@porn\n")
   _=pubf.Close
