@@ -17,6 +17,8 @@ This proof of concept tool is intended to solve the first two problems (don't kn
 
 Usage
 =====
+Install the package (go install github.com/joonakannisto/determin-ed)
+
 Create a key seed file.
 Any tool that can output truly madly random garbage like ssh-keygen is fine for this.
 
