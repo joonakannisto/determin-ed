@@ -52,12 +52,12 @@ func main() {
   digest[31] &= 127
   // Second highest bit set of the last
   digest[31] |= 64
-  // I is ^c^v:ing from agl ed25519
-  var A edwards25519.ExtendedGroupElement
-  var hBytes [32]byte
-  copy(hBytes[:], digest[:32])
-  edwards25519.GeScalarMultBase(&A, &hBytes)
-  A.ToBytes(publicKey)
+  // inspired by agl ed25519
+  var curvePoint edwards25519.ExtendedGroupElement
+  var scalarBytes [32]byte
+  copy(scalarBytes[:], digest[:32])
+  edwards25519.GeScalarMultBase(&curvePoint, &scalarBytes)
+  curvePoint.ToBytes(publicKey)
   var pubkeystat [32]byte
   pubkeystat=*publicKey
   var privkey [64]byte
