@@ -12,9 +12,9 @@ What if the attacker would not be able to confirm the key guesses without trying
  - Valid private key decryption should not have structure, i.e. no offline guess attackability
    - For example, RSA fails this as valid p and q have structure: namely they are prime numbers, and getting two prime numbers randomly (1/log(N) each) would be roughly one in a million chance for 1k RSA.
  - The public key should not be in the device. This unfortunately breaks ssh-agent normal behavior.
- - OpenSSH public key query should be resistant to timing attacks
+ - SSHD public key query should be resistant to timing attacks
 
-This proof of concept tool is intended to solve the first two problems (don't know anything about the last issue).
+This proof of concept tool is intended to solve the first two problems. The third one is SSHD devs problem.
 
 Usage
 =====
@@ -40,8 +40,7 @@ Automate a command to create your keys when connecting to target
 
 Can this be used to create password based keys?
 ===============================================
-Yes. Should you? Maybe not. OpenSSH supports also password authentication, did you know?  
-
+Yes. Should you? Definitely not. The public key might not be treated as confidential. OpenSSH supports password authentication. Too bad that J-PAKE is not supported anymore. 
 
 
 
